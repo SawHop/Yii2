@@ -6,9 +6,10 @@
  * Time: 21:37
  */
 
-namespace app\ controllers\actions;
+namespace app\controllers\actions;
 
 
+use app\components\ActivityComponent;
 use app\models\Activity;
 use yii\base\Action;
 
@@ -18,18 +19,23 @@ class ActivityCreateActions extends Action
 
     public function run()
     {
-        $model = new Activity();
-
+        /** @var ActivityComponent $comp */
+        $comp = \Yii::$app->activity;
+        $model = $comp->getModel();
         if (\Yii::$app->request->isPost) {
             $model->load(\Yii::$app->request->post());
+            if ($comp->createActivity($model)) {
+
+            }
+//            if (!$model->validate()) {
+//                print_r($model->getErrors());
+//            }
         }
+
 
 //        print_r($model->getAttributes());
 //        exit();
 
-//        if (!$model->validate()) {
-//            print_r($model->getErrors());
-//        }
 
         return $this->controller->render('create', ['model' => $model, 'name' => $this->name]);
     }

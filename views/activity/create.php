@@ -18,7 +18,12 @@
             'id' => 'Activity-create',
             'method' => 'POST'
         ]) ?>
-        <?=$name?>
+        <?= $name ?>
+        <br>
+        <?= \Yii::getAlias('@app/files/file'); ?>
+        <br>
+        <?= \Yii::getAlias('@webroot'); ?>
+        <br>
         <?= $form->field($model, 'title') ?>
 
         <?= $form->field($model, 'description')->textarea(['data-id' => '1']) ?>
