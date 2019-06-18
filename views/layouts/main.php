@@ -38,7 +38,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'hi', 'url' => ['/site/index']],
+            ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
@@ -69,6 +69,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
+        <p>Назад: <?=Yii::$app->session->getFlash('last_page_url')?></p>
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>

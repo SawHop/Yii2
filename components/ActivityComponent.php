@@ -1,17 +1,17 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: SawHo
- * Date: 14.06.2019
- * Time: 0:41
+ * User: User
+ * Date: 22.03.2019
+ * Time: 23:41
  */
 
 namespace app\components;
 
-
 use app\models\Activity;
 use yii\base\Component;
-use yii\db\Exception;
+use yii\validators\EmailValidator;
+use yii\web\UploadedFile;
 
 class ActivityComponent extends Component
 {
@@ -21,8 +21,8 @@ class ActivityComponent extends Component
     {
         parent::init();
 
-        if(empty($this->model_class)){
-            throw new Exception('Need model_class param');
+        if (empty($this->model_class)) {
+            throw new \Exception('Need model_class param');
         }
     }
 
@@ -31,13 +31,19 @@ class ActivityComponent extends Component
         return new $this->model_class;
     }
 
-    public function createActivity(&$model): bool
+    public function createActivity(&$model, $post): bool
     {
-        $model->load(\Yii::$app->request->post());
-        if (!$model->validate()) {
-            //print_r($model->getErrors());
-            return false;
+        /** @var Activity $model */
+        if ($model->load($post)) {
+            $model->file=UploadedFile::getInstance($model,'file');
+            if ($model->validate()) {
+                $comp=\Yii::createObject(['class'=>FileServiceComponent::class]);
+                if(!empty($file=$comp->saveUploadedFile($model->file))){
+                    $model->file=basename($file);
+                }
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 }

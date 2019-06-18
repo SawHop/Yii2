@@ -7,23 +7,19 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'language' => 'ru_RU',
+    'language' => 'ru-RU',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm' => '@vendor/npm-asset',
-
-    ],
-    'modules' => [
-        'auth' => [
-            'class' => 'app\modules\auth\Module',
-        ],
+        '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-        'activity' => ['class' => \app\components\ActivityComponent::class,
-            'model_class' => \app\models\Activity::class],
+        'activity' => [
+            'class' => app\components\ActivityComponent::class,
+            'model_class' => \app\models\Activity::class
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'qwmdAWlG1_e1iZ1lZ8zcg_3Qg_eo5efE',
+            'cookieValidationKey' => 'dFEEoIOf-J3Sxs7K5hLznIpVS6xSh-sk',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -52,14 +48,12 @@ $config = [
             ],
         ],
         'db' => $db,
-
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-
     ],
     'params' => $params,
 ];
@@ -70,14 +64,14 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['127.0.0.1', '*'],
+        'allowedIPs' => ['*'],
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        //uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['127.0.0.1', '*'],
+        // uncomment the following to add your IP if you are not connecting from localhost.
+        'allowedIPs' => ['*'],
     ];
 }
 

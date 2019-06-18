@@ -1,24 +1,23 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: SawHo
- * Date: 13.06.2019
- * Time: 21:27
+ * User: User
+ * Date: 22.03.2019
+ * Time: 18:32
  */
 
 namespace app\controllers;
 
 
 use app\base\BaseController;
-use app\controllers\actions\ActivityCreateActions;
+use app\controllers\actions\ActivityCreateAction;
 
 class ActivityController extends BaseController
 {
-   public function actions()
-   {
-       return [
-           'create'=>['class'=>ActivityCreateActions::class, 'name'=>'Dimas'],
-           'new'=>['class'=>ActivityCreateActions::class],
-       ];
-   }
+    public function actions()
+    {
+        return [
+            'create' => ['class' => ActivityCreateAction::class]
+        ];
+    }
 }
