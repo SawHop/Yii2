@@ -15,6 +15,9 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'auth'=>[
+            'class'=>app\components\AuthComponent::class
+        ],
         'activity' => [
             'class' => app\components\ActivityComponent::class,
             'model_class' => \app\models\Activity::class
