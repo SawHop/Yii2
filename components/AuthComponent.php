@@ -73,9 +73,9 @@ class AuthComponent extends BaseComponent
 
         $model = $model::findOne(['email' => $model->email]);
 
-//        $model->auth_key = $this->generateAuthKey();
-//
-//        $model->save();
+        $model->auth_key = $this->generateAuthKey();
+
+        $model->save();
 
         if (!$this->checkPassword($password, $model->password_hash)) {
             $model->addError('password', 'Пароль не пршел проверку');
