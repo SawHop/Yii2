@@ -5,8 +5,10 @@
  * Date: 20.06.2019
  * Time: 22:18
  */
-?>
+
+use app\widgets\daotable\DaoTableWidget; ?>
 <div class="row">
+    <?= DaoTableWidget::widget(['activities' => $acitvityUser]);?>
     <div class="col-md-6">
         <pre>
             <?=print_r($users)?>
@@ -32,4 +34,5 @@
             <?=\yii\helpers\ArrayHelper::getValue($item,'title');?>
         <?php endforeach;?>
     </div>
+
 </div>

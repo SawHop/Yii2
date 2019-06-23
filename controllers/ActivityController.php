@@ -12,6 +12,7 @@ namespace app\controllers;
 use app\base\BaseController;
 use app\controllers\actions\ActivityCreateAction;
 use app\models\Activity;
+use app\models\ActivitySearch;
 
 class ActivityController extends BaseController
 {
@@ -24,18 +25,22 @@ class ActivityController extends BaseController
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new ActivitySearch();
+        $provider = $model->getDataProvider(\Yii::$app->request->queryParams);
+
+        return $this->render('index',['model'=>$model,'provider'=>$provider]);
     }
 
-    public function actionView($id) {
+    public function actionView($id)
+    {
 
-        $model =Activity::find()->andWhere(['id'=>$id])->one(); // \Yii::$app->activity->getActivity($id);
+        $model = Activity::find()->andWhere(['id' => $id])->one(); // \Yii::$app->activity->getActivity($id);
 
-        if(!$model){
-            throw new HttpException(401,'activity not found');
+        if (!$model) {
+            throw new HttpException(401, 'activity not found');
         }
-        if(!\Yii::$app->rbac->canViewActivity($model)){
-            throw new HttpException(403,'not access show activity');
+        if (!\Yii::$app->rbac->canViewActivity($model)) {
+            throw new HttpException(403, 'not access show activity');
         }
 
         return $this->render('view',
