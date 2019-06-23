@@ -12,23 +12,11 @@ namespace app\models;
 use app\base\BaseModel;
 use app\models\rules\NotAdminRule;
 
-class Activity extends BaseModel
+class Activity extends ActivityBase
 {
-    public $title;
-
-    public $description;
-
-    public $date_start;
-
     public $repeat_type;
 
-    public $is_blocked;
-
-    public $email;
-
     public $repeat_email;
-
-    public $use_notification;
 
     public $file;
 
@@ -55,7 +43,7 @@ class Activity extends BaseModel
 
     public function rules()
     {
-        return [
+        return array_merge([
             [['title','date_start'], 'required'],
             [['title','description'],'trim'],
             ['description', 'string', 'min' => 10, 'max' => 300],
@@ -71,7 +59,7 @@ class Activity extends BaseModel
 //            ['title','notAdmin'],
             [['title','description'],NotAdminRule::class],
             ['repeat_type','in','range' => array_keys(self::$repeat_types)]
-        ];
+        ],parent::rules());
     }
 
     public function notAdmin($attr){
@@ -80,17 +68,6 @@ class Activity extends BaseModel
         }
     }
 
-    public function attributeLabels()
-    {
-        return [
-            'title' => 'Название активности',
-            'use_notification'=>'Уведомлять о событии',
-            'description' => 'Описание',
-            'date_start' => 'Дата начала',
-            'repeat_type' => 'Повтор',
-            'is_blocked' => 'Блокирующее событие',
-        ];
-    }
 
     public function getRepeatTypes() {
         return array_merge(static::$repeat_types,[5=>'Не допустимо']);
